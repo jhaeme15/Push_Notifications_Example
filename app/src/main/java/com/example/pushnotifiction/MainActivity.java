@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
-
+                        storeTokenFirebase(token);
                     }
                 });
     }
