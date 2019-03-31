@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void storeTokenFirebase(String token){
-        database.push().setValue(token);
+        database.push().child("token").setValue(token);
     }
 
 }
