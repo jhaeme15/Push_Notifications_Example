@@ -13,6 +13,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+/**
+ * Authors: Kyle Workman and Jared Haeme
+ * Example for sending and receiving push notifications through firebase
+ *
+ */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Main Activity";
     private DatabaseReference database;
@@ -21,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //from https://firebase.google.com/docs/database/android/start
         // Write a message to the database
         database = FirebaseDatabase.getInstance().getReference();
         FirebaseInstanceId.getInstance().getInstanceId()
@@ -39,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Sends device token to firebase
+     * @param token device token
+     */
     public void storeTokenFirebase(String token){
         database.push().child("token").setValue(token);
     }
