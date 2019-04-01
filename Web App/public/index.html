@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <title>Firebase Notification Example</title>
 
     <!DOCTYPE html>
     
@@ -77,10 +77,24 @@
         }
       });
 
+      // Send a notification to all users
       function sendNotification() {
-          firebase.database().ref().set({
-
+        let userKeys = [];
+        let tokens = [];
+        firebase.database().ref().once('value').then(function(snapshot) {
+          // Get the unique user ID and device token of each user
+          snapshot.forEach(function(childSnapshot) {
+            userKeys.push(childSnapshot.key);
+            tokens.push(childSnapshot.child("token").val());
           });
+          // Create a notify tree for each user with values for the device token and notification message
+          for (i = 0; i < userKeys.length; i++) {
+          firebase.database().ref().child(userKeys[i]).child("notify").set({
+            "token" : tokens[i],
+            "message" : "Hello World!"
+          });
+        }
+        });
       }
 
     </script>
